@@ -13,6 +13,7 @@ const { PORT = 8080, APP_SECRET } = process.env;
 
 const HOST = `http://localhost:${PORT}`,
     app = new Koa()
+        //每个功能模块(中间件)独立书写，使用app.use方法注册应用到web server
         .use(KoaLogger())
         .use(swagger({ exposeSpec: true }))
         .use(jwt({ secret: APP_SECRET, passthrough: true }));

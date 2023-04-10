@@ -14,7 +14,7 @@ import {
 } from 'class-validator';
 import { JsonWebTokenError } from 'jsonwebtoken';
 import { ParameterizedContext } from 'koa';
-import { NewData } from 'mobx-restful';
+import { IDType, NewData } from 'mobx-restful';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 import { Base, BaseFilter, BaseModel, ListChunk, UserBaseModel } from './Base';
@@ -61,6 +61,10 @@ export class UserInput {
 }
 
 export class UserFilter extends BaseFilter implements NewData<UserInput> {
+    // thanks bro
+    password?: string;
+    roles: IDType;
+
     @IsEmail()
     @IsOptional()
     email?: string;
@@ -70,8 +74,10 @@ export class UserFilter extends BaseFilter implements NewData<UserInput> {
     mobilePhone?: string;
 
     @IsString()
-    @IsOptional()
-    name?: string;
+    name: string;
+
+    @IsUrl()
+    avatar: string;
 
     @IsEnum(Gender)
     @IsOptional()
